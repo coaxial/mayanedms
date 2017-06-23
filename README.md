@@ -28,8 +28,8 @@ $ chown root:root /root/tarsnap-mayan-edms-backup.sh && chmod 600
 
 - Add a cronjob:
 ```bash
-# Backup Mayan EDMS data to tarnsap every 12 hours at 12 past
-12 */12 * * * /root/tarsnap-mayan-edms-backup.sh
+# Backup Mayan EDMS data to tarnsap
+12 2 * * * /root/tarsnap-mayan-edms-backup.sh
 ```
 
 ## Restoring backup
