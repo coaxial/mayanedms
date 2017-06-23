@@ -1,0 +1,18 @@
+# Global values, valid for all jobs unless overridden:
+deltas: 1d 7d 30d
+delta-names:
+  default: 1d 7d 30d 360d
+target: $name-$date
+dateformat: "%Y-%m-%d_%H-%M-%S"
+
+jobs:
+  mayan-edms:
+    # based on
+    # https://bitbucket.org/r.rosario/mayan-edms-docker/src/4efe54e16538f5b605ad25a20f8560492ca61828/README.md)
+    sources: 
+      - /var/lib/docker/volumes/mayan_data/_data/db.sqlite3
+      - /var/lib/docker/volumes/mayan_data/_data/document_storage
+      - /var/lib/docker/volumes/mayan_data/_data/settings
+    exec_before: docker stop mayan-edms
+    exec_after: docker start mayan-edms
+    delta: default

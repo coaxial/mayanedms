@@ -6,15 +6,7 @@
 email=my_email@example.net
 tarsnap_output_filename=/tmp/tarsnap-output-temporary.log
 
-datavolpath="$(docker volume inspect mayan_data | jq '.[0].Mountpoint' | sed \
-    -e "s/\"//g")"; \
-  docker stop mayan-edms &&\
-  tarsnap -c -f "mayan-edms-$(date +%Y-%m-%d_%H-%M-%S)" \
-    "$datavolpath/document_storage" \
-    "$datavolpath/db.sqlite3" \
-    "$datavolpath/settings" \
-    >$tarsnap_output_filename 2>&1 &&\
-  docker start mayan-edms
+tarsnapper -c /etc/tarsnapperrc.yml make > $tarsnap_output_filename 2>&1
 
 # Send email
 if [ $? -eq 0 ]; then
