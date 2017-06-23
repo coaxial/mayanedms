@@ -17,16 +17,24 @@ coaxial/mayanedms` and then run the starting command again.
 
 ## Backing up
 
-Via a cronjob (assumes `/backups` exists): 
+- Copy the `tarsnap-mayan-edms-backup.sh` script to `/root/`
+
+- Set the permissions:
 ```bash
-datavolpath="$(sudo docker volume inspect mayan_data | jq
-'.[0].Mountpoint' | sed -e "s/\"//g")"; sudo tar -zcvf /backups/mayan_data.tar.gz
-"$datavolpath/document_storage" "$datavolpath/db.sqlite3"
-"$datavolpath/settings"
+$ chown root:root /root/tarsnap-mayan-edms-backup.sh && chmod 600
+/root/tarnsap-mayan-edms-backup.sh && chmod u+x
+/root/tarsnap-mayan-edms-backup.sh
+```
+
+- Add a cronjob:
+```bash
+# Backup Mayan EDMS data to tarnsap every 12 hours at 12 past
+12 */12 * * * /root/tarsnap-mayan-edms-backup.sh
 ```
 
 ## Restoring backup
 
 > Assumes the data volume on the target instance is also named `mayan_data`
 
-`$ sudo tar -xvzf mayan_data.tar.gz -C /`
+- List available backups: `$ sudo tarsnap --list-archives | sort`
+- Restore chosen backup: `$ sudo tarnsap -x -f <backup-name>`
