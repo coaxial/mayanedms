@@ -9,3 +9,16 @@ datavolpath="$(docker volume inspect mayan_data | jq '.[0].Mountpoint' | sed \
     "$datavolpath/db.sqlite3" \
     "$datavolpath/settings" &&\
   docker start mayan-edms
+
+# User variables
+email=my_email@example.net
+tarsnap_output_filename=/tmp/tarsnap-output-temporary.log
+
+# Send email
+if [ $? -eq 0 ]; then
+  subject="Tarsnap backup success for Mayan EDMS"
+else
+  subject="Tarsnap backup FAILURE for Mayan EDMS"
+fi
+mail -s "$subject" $email < $tarsnap_output_filename
+rm $tarsnap_output_filename

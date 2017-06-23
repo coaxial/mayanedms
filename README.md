@@ -26,6 +26,8 @@ $ chown root:root /root/tarsnap-mayan-edms-backup.sh && chmod 600
 /root/tarsnap-mayan-edms-backup.sh
 ```
 
+- Edit the reporting email in `tarsnap-mayan-edms-backup.sh`
+
 - Add a cronjob:
 ```bash
 # Backup Mayan EDMS data to tarnsap
