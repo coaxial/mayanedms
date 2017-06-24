@@ -6,7 +6,7 @@
 email=my_email@example.net
 tarsnap_output_filename=/tmp/tarsnap-output-temporary.log
 
-tarsnapper -c /etc/tarsnapperrc.yml make > $tarsnap_output_filename 2>&1
+/usr/local/bin/tarsnapper -c /etc/tarsnapperrc.yml make > $tarsnap_output_filename 2>&1
 
 # Send email
 if [ $? -eq 0 ]; then
