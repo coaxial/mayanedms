@@ -13,6 +13,9 @@ RUN apt-get update && \
       rm -rf /var/lib/apt/lists/* && \
       rm -f /var/cache/apt/archives/*.deb
 
+RUN mkdir -p /srv/scanned_documents
+VOLUME /srv/scanned_documents
+
 # Retain the original entrypoint and command
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["mayan"]
