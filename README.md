@@ -8,7 +8,22 @@ Use as `coaxial/mayanedms` instead of `mayanedms/mayanedms` in commands.
 
 > Requires docker to be up and running
 
-`$ docker run -d --name mayan-edms --restart=always -p 8080:80 -v mayan_data:/var/lib/mayan coaxial/mayanedms`
+```
+$ docker run \
+  --detach \
+  --name mayan-edms \
+  --restart=always \
+  --publish 8080:80 \
+  --volume mayan_data:/var/lib/mayan \
+  --volume mayan_dropbox:/srv/scanned_documents \
+  coaxial/mayanedms
+```
+
+## Volumes
+
+The directory at `/srv/scanned_documents` is watched by Mayan EDMS to
+automatically import any document dropped in it. This is used in combination
+with coaxial/ct2p to easily ingest scanned documents prepped for OCR.
 
 ## Upgrading
 
@@ -19,7 +34,7 @@ coaxial/mayanedms` and then run the starting command again.
 
 > Assumes docker and Mayan are running, tarsnap is installed and setup with the
 > relevant key ([instructions](https://www.tarsnap.com/gettingstarted.html)),
-> and that > tarsnapper is ready to go
+> and that tarsnapper is ready to go
 > ([instructions](https://github.com/miracle2k/tarsnapper)).
 
 - Unpack the `lib/backup_setup.tar.gz` archive on the target machine at `/`
