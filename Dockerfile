@@ -1,4 +1,4 @@
-FROM mayanedms/mayanedms:2.3
+FROM mayanedms/mayanedms:2.4
 
 ENV DEBIAN_FRONTEND noninteractive
 
